@@ -5,14 +5,24 @@ form {
     align-content: center;
 }
 
+form.large-form {
+    width:100%;
+    padding: var(--space);
+    margin: var(--space);
+}
+
 form input, form textarea {
+    font-size: var(--font-size);
     border: none;
+    border: 1px solid var(--dark-gray);
     border-radius: var(--main-border-radius);
     padding: var(--space);
 }
 
 form input:focus, textarea:focus {
+    /* outline: solid 2px var(--main-color); */
     outline: none;
+    /* border: 2px solid var(--main-color) */
 }
 
 form textarea {
@@ -25,4 +35,8 @@ form textarea {
 form input[type='submit'] {
     width: 100%;
     background-color: var(--main-background-color);
+}
+
+form label {
+    color: var(--text-color);
 }

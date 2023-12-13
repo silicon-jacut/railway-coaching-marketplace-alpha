@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_class %}center{% endblock %}
+
+{% block body %}
+
+{% import 'components/macros.html' as macros %}
+
+<div class='centered-column'>
+    <p>💌 Merci d'avoir créé votre compte,<br><br>Cliquez sur ce lien pour continuer : </p>
+    <a href="/dashboard" class='cta'>Vérifier mon compte</a>
+</div>
+
+
+{% endblock %}

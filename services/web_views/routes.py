@@ -21,6 +21,22 @@ def login():
 def register():
     return render_template('auth/register.html')
 
+@routes_blueprint.route('/coaches/register')
+def coaches_register():
+    return render_template('auth/coaches-register.html')
+
+@routes_blueprint.route('/clients/emailsim')
+def clients_emailsim():
+    return render_template('emails/clients.html')
+
+@routes_blueprint.route('/coaches/emailsim')
+def coaches_emailsim():
+    return render_template('emails/coaches.html')
+
+@routes_blueprint.route('/my-page')
+def coaches_dashboard():
+    return render_template('platform/coaches/dashboard/my-page.html')
+
 # Change password route
 @routes_blueprint.route('/change-password')
 def change_password():

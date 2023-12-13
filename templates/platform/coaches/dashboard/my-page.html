@@ -4,6 +4,19 @@
 
 {% import 'components/macros.html' as macros %}
 
-{{ macros.form(callbackFuncString='func', api_address='/api/update-profile', fields = [{'name':'image','type':'image', 'label': 'image : '},{'name':'Title : What kind of coach are you', 'type': 'text', 'label':'title'},{'name':'Description : You can write what you\'ve done, who you\'ve helped, what makes you unique importantly : what\'s in it for the people you help. How can you help people.', 'type': 'textarea', 'label':'description...'}], button_value='Save', rfrc_token = '', form_id='form', form_class='form', style='width: 100%; margin: var(--space);') }}
+<form action="" class='large-form' id='profile-form'>
+    <!-- <div style='display:flex; justify-content:start; align-content:center'> -->
+        <!-- <input type="image"> -->
+        <input type="text" name="title" placeholder="Title : ">
+    <!-- </div> -->
+    <input type="text" name="tags" placeholder="Tags : ">
+    <textarea type="text" name="description : " placeholder="Description : "></textarea>
+    <input type="submit">
+</form>
+
+<script> 
+    handleForm('/api/coaches/edit-profile', 'profile-form').then(response => {console.log(response);})
+</script>
 
 {% endblock %}
+

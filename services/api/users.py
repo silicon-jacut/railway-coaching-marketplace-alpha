@@ -3,11 +3,14 @@ from werkzeug.security import generate_password_hash
 from pymongo.errors import DuplicateKeyError
 from pymongo import MongoClient
 from bson import ObjectId
+from dotenv import load_dotenv
 import os
 
 # -------------------------------------------------- Set up -------------------------------------------------- #
 
 users_blueprint = Blueprint('users', __name__)
+
+load_dotenv()
 
 _client = MongoClient(os.getenv('PROTOTYPE_DB_CONNECTION_STRING'))
 _db = _client[os.getenv('PROTOTYPE_DB_NAME')]
@@ -15,19 +18,26 @@ _users = _db['users']
 
 # ----------------------------------------- Helper Functions/Objects ----------------------------------------- #
 
-def create_user(password : str, email : str, first_name = None, last_name = None):
+def create_user(password : str, email : str,  is_coach : bool, first_name = None, last_name = None):
     hashed_password = generate_password_hash(password)
     user = {
-        'firstname': first_name,
+        'firstName': first_name,
+        'lastName': last_name,
         'email': email,
-        'password': hashed_password
+        'password': hashed_password,
+        'isCoach': is_coach,
     }
     
     try:
         _users.insert_one(user)
-        return {'message': 'User created successfully'}, 201
+        return jsonify({'message': 'User created successfully'}), 201
     except DuplicateKeyError:   # Check if that works 🟠
-        return {'message': 'User with given email already exists'}, 409
+        return jsonify({'Error': 'User with given email already exists'}), 409
+    
+def update_coach_profile(title, tags, description):
+
+    _users.update_one({})
+    return jsonify({'message': 'User created successfully'}), 201
     
 def get_user_by_id(user_id : str):
     # Retrieve user by user_id
@@ -52,17 +62,47 @@ def delete_user(user_id : str|ObjectId):
 
 # ------------------------------------------------ Endpoints ------------------------------------------------- #
 
-@users_blueprint.route('/create_user', methods=['POST'])
+@users_blueprint.route('/create-user', methods=['POST'])
 def api_create_user():
     # Extract user data from request
     data = request.get_json()
-    firstname = data.get('firstName')
+    first_name = data.get('firstName')
     last_name = data.get('lastName')
     email = data.get('email')
     password = data.get('password')
-    return create_user()
 
-    # return jsonify({'message': 'Invalid user data'}), 400
+    return create_user(password, email, is_coach=False, first_name=first_name, last_name=last_name)
+
+@users_blueprint.route('/coaches/create-user', methods=['POST'])
+def api_coaches_create_user():
+    # Extract user data from request
+    data = request.get_json()
+    # first_name = data.get('firstName')
+    # last_name = data.get('lastName')
+    # email = data.get('email')
+    # password = data.get('password')
+
+    data_items = first_name, last_name, email, password = data.get('firstName'), data.get('lastName'), data.get('email'), data.get('password')
+
+    if len(data_items) < 4:
+        return jsonify({'Error':'All fields required.'}), 403
+    # create_user(password, email, is_coach=True, first_name=first_name, last_name=last_name)
+    
+    # return create_user(password, email, is_coach=True, first_name=first_name, last_name=last_name)
+
+    _users.insert_one({'firstName':first_name, 'lastName':last_name, 'email': email, 'hPassword': generate_password_hash(password)})
+
+    return jsonify({'message':'Success in creating coach account.'}), 200
+
+@users_blueprint.route('/coaches/edit-profile')
+def api_coaches_edit_profile():
+    data = request.get_json()
+    data_items = title, tags, description = data['title'], data['tags'], data['description']
+
+    
+    return jsonify({'message':'Success in updating profile in the database.'}), 200
+
+
 
 @users_blueprint.route('/get_user/<user_email>', methods=['GET'])
 def api_get_user(user_email):

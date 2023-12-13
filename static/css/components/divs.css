@@ -1,0 +1,30 @@
+.centered-column {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: var(--space);
+}
+
+.centered-column > * {
+    text-align: center;
+}
+
+.centered-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: var(--space)
+}
+
+.centered-line > * {
+    /* flex: 1; */
+    width: 100%;
+}
+
+.start-line {
+    display: flex;
+    justify-content: start;
+    align-content: stretch;
+}

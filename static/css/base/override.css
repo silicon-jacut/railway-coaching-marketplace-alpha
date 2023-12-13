@@ -1,3 +1,15 @@
 a {
-    color: var(--text-color)
+    color: var(--text-color);
+    transition: transform ease 1s;
+}
+
+a:hover {
+    transform: translateY(-2px);
+    /* box-shadow: var(--main-shadow); */
+}
+
+::selection {
+    color: var(--white);
+    background: var(--dark-gray);
+    /* background: var(--main-color); */
 }

@@ -4,159 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>{% block title %}Default Title{% endblock %}</title>
-</head>
-<body class='{% block body_class %}{% endblock %}'>
-    {% block body %}{% endblock %}
-</body>
 
-<script>
-    // Function to refresh the authentication token periodically
-    function refreshTokenPeriodically(msPeriod = 15 * 1000 * 60) {
-        // Set interval for token refresh - Adjust the interval as needed
-        setInterval(async () => {
-            try {
-                // Attempt to refresh the token by sending a request to the refresh endpoint
-                const refreshResponse = await fetch('/api/refresh_jwts', { method: 'POST', credentials: 'include' });
-                const refreshData = await refreshResponse.json();
-                console.log('Periodic token refresh:', refreshData);
-            } catch (error) {
-                // Log any errors encountered during the token refresh
-                console.error('Error refreshing token:', error);
-            }
-        }, msPeriod); // Refresh token every msPeriod Seconds
-    }
-    
-    // Call the function to start the periodic token refresh
-    refreshTokenPeriodically();
+    <script>
 
-    // Function to handle JSON API requests with token refresh logic
-    async function jsonRequest(address, body = {}, method='POST') {
-        let response = await fetch(address, {
-            method: method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-            credentials: 'include', // Include credentials for session handling
-        });
+            // Function to handle JSON API requests with token refresh logic
+        async function jsonRequest(address, body = {}, method='POST') {
 
-        // Check if the response status is 401 (Unauthorized)
-        if (response.status === 401) {
-            try {
-                // Attempt to refresh the token
-                const refreshResponse = await fetch('/api/refresh_jwts', {method: 'POST', credentials: 'include'});
-                const refreshData = await refreshResponse.json();
+            console.log('jsonRequest : arguments : (address = ', address, ', body = ', body, ', method = ', method, ')')
 
-                console.log('Token refresh response:', refreshData);
+            let response = await fetch(address, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+                credentials: 'include', // Include credentials for session handling
+            });
 
-                // If token refresh is successful, retry the original request
-                if (refreshResponse.status === 200) {
-                    response = await fetch(address, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body),
-                        credentials: 'include',
-                    });
-                }
-            } catch (error) {
-                // Log any errors encountered during the token refresh and rethrow them
-                console.error('Error refreshing token:', error);
-                throw error;
-            }
-        }
-        // Return the final response in JSON format
-        return response.json();
-    }
-</script>
+            console.log('jsonRequest : fetch() awaited response : ', response)
 
-<script>
-    // Magic Cache. To use in every page as : magicCache(['/page_to_load_first',''])
-    function magicCache(routesToPreload) { // Caches pages and override <a> tag behavior
-        document.addEventListener('DOMContentLoaded', async function() {
-            for (const pageUri of routesToPreload) {
+            // Check if the response status is 401 (Unauthorized)
+            if (response.status === 401) {
                 try {
-                    const response = await fetch(pageUri);
-                    if (response.ok) {
-                        const content = await response.text();
-                        localStorage.setItem(encodeURIComponent(pageUri), content);
-                    } else {
-                        console.error('Fetch failed for:', pageUri);
+                    // Attempt to refresh the token
+                    const refreshResponse = await fetch('/api/refresh_jwts', {method: 'POST', credentials: 'include'});
+                    const refreshData = await refreshResponse.json();
+
+                    console.log('Token refresh response:', refreshData);
+
+                    // If token refresh is successful, retry the original request
+                    if (refreshResponse.status === 200) {
+                        response = await fetch(address, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(body),
+                            credentials: 'include',
+                        });
                     }
                 } catch (error) {
-                    console.error('Error fetching page:', pageUri, error);
+                    // Log any errors encountered during the token refresh and rethrow them
+                    console.error('Error refreshing token:', error);
+                    throw error;
                 }
             }
-            overrideLinks();
-        });
-    }
-    
-
-    // Function to override <a> tag behavior
-    function overrideLinks() {
-        document.querySelectorAll('a').forEach(link => {
-            // Remove existing listener to prevent duplication
-            link.removeEventListener('click', handleLinkClick);
-            // Add new listener
-            link.addEventListener('click', handleLinkClick);
-        });
-    }
-
-    function handleLinkClick(e) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-        const cachedContent = localStorage.getItem(encodeURIComponent(href));
-        if (cachedContent) {
-            updateDOMWithCachedContent(cachedContent);
-        } else {
-            window.location.href = href;
+            // Return the final response in JSON format
+            console.log('jsonRequest : response : ' + response);
+            return response.json();
         }
-    }
+    </script>
 
-    // Function to update the DOM with cached content
-    function updateDOMWithCachedContent(content) {
-        const mainContentArea = document.getElementById('main-content');
-        if (mainContentArea) {
-            mainContentArea.innerHTML = content;
-            // Optionally reinitialize any JavaScript functionality as needed
-        }
-    }
-
-    // Usage example
-    magicCache(['/somepage', '/anotherpage']);
-
-</script>
-
-
-<!-- FORMS :  -->
-<script>
-    async function handleForm(e) {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-        const formDataDict = {};
-        formData.forEach((value, key) => {
-            formDataDict[key.toString()] = value.toString();
-        });
-
-        if ('{{is_coach}}' != 'null') {
-            formDataDict['isCoach'] = '{{is_coach}}'.toLowerCase() === 'true'; // Converts sting to boolean
-        }
-
-        const formDataString = JSON.stringify(formDataDict)
+        <!-- FORMS :  -->
+    <script>
+        async function handleForm(apiEndpoint, formId) {
+            return new Promise((resolve, reject) => {
+                const form = document.getElementById(formId);
         
-        const jsonResponse = await jsonRequest('{{api_address}}', dictData = formDataString);
+                form.onsubmit = async (e) => {
+                    e.preventDefault();
         
-        // EQUIVALENT OF THE RETURN STATEMENT
-        // Call the function by name
-        if (typeof window['{{ callbackFuncString }}'] === 'function') {
-            window['{{ callbackFuncString }}'](jsonResponse);
-        }
-        // ----------------------------------
+                    const formData = new FormData(form);
+                    const formDataDict = {};
+                    formData.forEach((value, key) => {
+                        formDataDict[key.toString()] = value.toString();
+                    });
+        
+                    try {
+                        const response = await jsonRequest(apiEndpoint, formDataDict);
+                        resolve(response);  // Resolve the promise with the response
+                    } catch (error) {
+                        reject(error);  // Reject the promise with the caught error
+                    }
+                };
+            });
+        }        
+    </script>
 
-        return JSON.stringify(jsonResponse);
-    }
-
-    document.getElementById('form').addEventListener('submit', formHandler);
-</script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>{% block title %}Hacene{% endblock %}</title>
+</head>
+<body class='{% block body_class %}body{% endblock %}'>
+    {% block body %}{% endblock %}
+</body>
 
 </html>

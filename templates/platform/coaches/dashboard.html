@@ -1,22 +1,19 @@
 {% extends 'base.html' %}
 
+{% block body_class %}start-line{% endblock %}
+
 {% block body %}
-
-{% import 'components/macros.html' as macros %}
-
-<div class="dashboard-background">
     
-    <nav class="navbar-side">
-        <a href="">Menu</a>
-        <a href="/my-page">My Page</a>
-        <a href="/clients">Clients</a>
-        <a href="/calendar">Calendar</a>
-        <a href="/revenue">Revenue</a>
-        <!-- <a href="">Revenues</a> -->
-        <a href="/settings">Settings</a>
-    </nav>
-    
-    {% block content %}Default content{% endblock %}
-</div>
+<nav class="navbar-side">
+    <a href="">Menu</a>
+    <a href="/my-page">My Page</a>
+    <a href="/clients">Clients</a>
+    <a href="/calendar">Calendar</a>
+    <a href="/revenue">Revenue</a>
+    <!-- <a href="">Revenues</a> -->
+    <a href="/settings">Settings</a>
+</nav>
+
+{% block content %}Default content{% endblock %}
 
 {% endblock %}

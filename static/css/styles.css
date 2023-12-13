@@ -11,6 +11,8 @@
 @import url('components/form.css');
 @import url('components/messages.css');
 @import url('components/nav.css');
+@import url('components/divs.css');
+@import url('components/body.css');
 
 
 /* @import url('base.no');
@@ -37,6 +39,7 @@
     --main-padding: var(--space);
     --main-white: white;
     --main-light-light-gray: rgb(246, 246, 246);
+    /* --main-background-color: green; */
 }
 
 body {
@@ -60,12 +63,6 @@ footer {
     background-color: var(--background-color-footer);
     color: white;
     text-shadow: var(--main-shadow);
-}
-
-.center, .inline {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .container-vertical {

@@ -8,7 +8,9 @@
     flex-direction: column;
     justify-content: center;
     width: min-content;
-    background-color: var(--main-white);
+    /* background-color: var(--main-white); */
+    background-color: var(--dark-gray);
+    color: var(--background-color);
 }
 
 .navbar-side > a{
