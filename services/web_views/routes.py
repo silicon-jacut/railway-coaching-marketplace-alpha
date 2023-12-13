@@ -29,10 +29,6 @@ def coaches_register():
 def clients_emailsim():
     return render_template('emails/clients.html')
 
-@routes_blueprint.route('/dashboard')
-def coaches_dashboard():
-    return render_template('platform/coaches/dashboard.html')
-
 @routes_blueprint.route('/coaches/emailsim')
 def coaches_emailsim():
     return render_template('emails/coaches.html')
