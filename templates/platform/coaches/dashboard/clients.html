@@ -1,0 +1,24 @@
+{% extends 'platform/coaches/dashboard.html' %}
+
+{% block content %}
+
+{% import 'components/macros.html' as macros %}
+
+<div class='messages'>
+    {% for i in range(2) %}
+        <p class="message-left">Test</p>
+        <p class="message-right">Test</p>
+    {% endfor %}
+    <form action="" style="flex-direction: row;">
+        <input type="text" placeholder="...">
+        <input type="submit" name=">" value='>'>
+    </form>
+</div>
+
+<nav style='margin-right: 0;' class="navbar-right">
+    {% for i in range(10) %}
+        <a href="">test</a>
+    {% endfor %}
+</nav>
+
+{% endblock %}

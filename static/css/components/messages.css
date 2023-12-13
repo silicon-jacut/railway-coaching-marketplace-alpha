@@ -1,0 +1,29 @@
+.messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: center;
+    width: 100%;
+    padding: var(--space);
+}
+
+.message-left {
+    background-color: white;
+    border-radius: var(--main-border-radius) var(--main-border-radius) var(--main-border-radius) 0;
+    padding: var(--space);
+    margin-left: 0;
+    width: min-content;
+}
+
+.message-right {
+    text-align: right;
+    background-color: var(--secondary-color);
+    border-radius: var(--main-border-radius) var(--main-border-radius) 0 var(--main-border-radius);
+    padding: var(--space);
+    margin-left: auto;
+    width: min-content;
+}
+
+.messages form {
+    margin-top: auto;
+}

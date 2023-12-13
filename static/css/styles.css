@@ -1,0 +1,85 @@
+@import url('base/normalize.css');
+@import url('base/reset.css');
+
+@import url('variables.css');
+
+@import url('base/override.css');
+
+@import url('components/card.css');
+@import url('components/cta.css');
+@import url('components/footer.css');
+@import url('components/form.css');
+@import url('components/messages.css');
+@import url('components/nav.css');
+
+
+/* @import url('base.no');
+@import url('reset.css');
+@import url('overridable/a.css');
+@import url('components/messages.css');
+@import url('components/form.css');
+@import url('components/dashboard_background.css');
+@import url('components/nav.css');
+@import url('components/cta.css');
+@import url('components/footer.css');
+@import url('components/small_things.css'); */
+
+:root {
+    --main-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
+    --main-color: green;
+    --main-color-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
+    --text-color-default: rgb(30, 30, 30);
+    --background-color-footer: rgb(30, 30, 30);
+    --dark-gray:  rgb(30, 30, 30);
+    --main-text-color: var(--dark-gray);
+    --main-border-radius: 10px;
+    --space: 1.5rem;
+    --main-padding: var(--space);
+    --main-white: white;
+    --main-light-light-gray: rgb(246, 246, 246);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    /* background-color: rgb(247, 247, 247); */
+}
+
+h1 {
+    font-size: 70px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.space {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+footer {
+    background-color: var(--background-color-footer);
+    color: white;
+    text-shadow: var(--main-shadow);
+}
+
+.center, .inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-vertical {
+    display: flex;
+    padding: 0 1rem;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.container-vertical > :first-child {
+    margin-top: 6rem;
+}
+
+.container-horizontal {
+    display: flex;
+    justify-content: center;
+}

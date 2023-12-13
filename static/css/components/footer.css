@@ -1,0 +1,14 @@
+footer {
+    padding: var(--main-padding);
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+footer a {
+    color: white;
+}
+
+/* a {
+    color: white;
+} */

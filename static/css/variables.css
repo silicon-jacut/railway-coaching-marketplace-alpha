@@ -1,0 +1,12 @@
+:root {
+    /* recurrent do not call outside of root */
+    --light-gray: rgb(248, 248, 248);
+    --dark-gray: rgb(30,30,30);
+
+
+    /*  */
+    --text-color: var(--dark-gray);
+
+    --background-color-2: var(var(--light-gray));
+
+}

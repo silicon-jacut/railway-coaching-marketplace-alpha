@@ -1,0 +1,9 @@
+{% extends 'platform/coaches/dashboard.html' %}
+
+{% block content %}
+
+{% import 'components/macros.html' as macros %}
+
+{{ macros.form(callbackFuncString='func', api_address='/api/update-profile', fields = [{'name':'image','type':'image', 'label': 'image : '},{'name':'Title : What kind of coach are you', 'type': 'text', 'label':'title'},{'name':'Description : You can write what you\'ve done, who you\'ve helped, what makes you unique importantly : what\'s in it for the people you help. How can you help people.', 'type': 'textarea', 'label':'description...'}], button_value='Save', rfrc_token = '', form_id='form', form_class='form', style='width: 100%; margin: var(--space);') }}
+
+{% endblock %}

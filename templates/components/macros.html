@@ -1,0 +1,74 @@
+{% macro form(callbackFuncString, api_address, fields = [{'name':'email','type':'email', 'label': 'Email : '},{'name':'password', 'type': 'password', 'label':'Mot de passe : '}], button_value='Envoyer', is_coach = 'null', rfrc_token = '', form_id='form', form_class='form', style='width: 30rem;') %}
+
+<!-- <form action="" id='form'>
+    <input type="email" id="email">
+    <input type="password" id="password">
+    <input type="submit" id="submit">
+</form> -->
+
+<form action="" id="{{form_id}}" class='{{form_class}}' style='{{ style }}'>
+{% for field in fields %}
+    <!-- <label for="{{field['name']}}">{{field['label']}}</label> -->
+    
+    {% if field['type'] == 'textarea' %}<textarea {% else %} <input {% endif %} required type="{{field['type']}}" id="{{field['name']}}" name="{{field['name']}}" placeholder="{{field['name']}}">{% if field['type'] == 'textarea' %}</textarea> {% endif %}
+    <br>
+{% endfor %}
+<input type="submit" value="{{button_value}}">
+<!-- <a type="submit" class="cta">{{button_value}}</a> -->
+</form>
+
+<!-- <script>
+    async function postAndFetch(apiAddress = '{{api_address}}', dictData = {}) {
+        console.log(dictData)
+        try { 
+            const response = await fetch(apiAddress, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dictData) // Ensure this is a valid JSON string
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const jsonResponse = await response.json(); // You can't read response.json() twice, it consumes it
+
+            return jsonResponse; // If you need to use this data outside
+        } catch (error) {
+            console.error('macros.form - postAndFetch() Error :', error);
+        }
+    }
+</script> -->
+
+<script>
+    async function formHandler(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const formDataDict = {};
+        formData.forEach((value, key) => {
+            formDataDict[key.toString()] = value.toString();
+        });
+
+        if ('{{is_coach}}' != 'null') {
+            formDataDict['isCoach'] = '{{is_coach}}'.toLowerCase() === 'true'; // Converts sting to boolean
+        }
+
+        const formDataString = JSON.stringify(formDataDict)
+        
+        const jsonResponse = await jsonRequest('{{api_address}}', dictData = formDataString);
+        
+        // EQUIVALENT OF THE RETURN STATEMENT
+        // Call the function by name
+        if (typeof window['{{ callbackFuncString }}'] === 'function') {
+            window['{{ callbackFuncString }}'](jsonResponse);
+        }
+        // ----------------------------------
+
+        return JSON.stringify(jsonResponse);
+    }
+
+    document.getElementById('form').addEventListener('submit', formHandler);
+</script>
+
+{% endmacro %}

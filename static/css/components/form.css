@@ -1,0 +1,28 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+form input, form textarea {
+    border: none;
+    border-radius: var(--main-border-radius);
+    padding: var(--space);
+}
+
+form input:focus, textarea:focus {
+    outline: none;
+}
+
+form textarea {
+    resize: none; /* Prevents resizing */
+    /* min-height: 2rem;
+    max-height: 50rem; */
+    height: 30rem;
+}
+
+form input[type='submit'] {
+    width: 100%;
+    background-color: var(--main-background-color);
+}
