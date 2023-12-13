@@ -54,10 +54,9 @@ def update_user(email : str, update_data : dict):
     _users.update_one({'email': email}, {'$set': update_data})
     return get_user_by_id(email)
 
-def delete_user(user_id : str|ObjectId):
-    # Delete user from database
-    _users.delete_one({'_id': user_id})
-
+# def delete_user(user_id : str|ObjectId):
+#     # Delete user from database
+#     _users.delete_one({'_id': user_id})
 
 
 # ------------------------------------------------ Endpoints ------------------------------------------------- #
