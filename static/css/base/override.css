@@ -5,11 +5,11 @@ a {
 
 a:hover {
     transform: translateY(-2px);
-    /* box-shadow: var(--main-shadow); */
+    /* text-shadow: 0px 5px 6px rgba(0, 128, 0, 0.477); */
 }
 
 ::selection {
     color: var(--white);
-    background: var(--dark-gray);
-    /* background: var(--main-color); */
+    /* background: var(--dark-gray); */
+    background: var(--main-color);
 }

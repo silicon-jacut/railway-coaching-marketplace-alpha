@@ -1,0 +1,30 @@
+.time-block {
+    border-radius: var(--main-border-radius);
+    width: 7rem;
+    min-width: 5rem;
+    /* max-width: 9rem; */
+    max-height: 3rem;
+    padding: var(--half-space) var(--space);
+    box-shadow: none;
+    color: gray;
+    background-color: var(--main-background-color);
+    /* border: 1px solid transparent; */
+}
+
+.time-block.arrow {
+    padding: var(--half-space) var(--space);
+    width: 1rem;
+}
+
+.time-block.selected {
+    box-shadow: var(--main-shadow);
+    color: var(--dark-gray);
+    background-color: var(--background-color);
+    /* color: var(--white); */
+    /* color: var(--main-color) */
+}
+
+.time-block .taken {
+    background-color: var(--main-color);
+    color: var(--white);
+}

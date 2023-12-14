@@ -4,6 +4,85 @@
 
 {% import 'components/macros.html' as macros %}
 
+<style>
+    #calendar-widget {
+        display: flex;
+        justify-content: space-between;
+        margin: var(--space);
+        align-items: center;
+        width: min-content;
+        height: min-content;
+    }
+</style>
 
+<div id='page-center-div' class='center'>
+    <div id='calendar-widget'>
+        <script>
+            jsonRequest('/api/coaches/calendar')
+        </script>
+
+        <!-- {% for day in days %}
+        <div class='centered-column'>
+            {% for time in times %}
+            <a href="" id='{{day}} - {{times}}'>Test</a>
+
+            <script> 
+                document.getElementById('{{i}} - {{y}}').onclick((e) => {console.log(e)})
+            </script>
+            {% endfor %}
+        </div>
+        {% endfor %} -->
+
+        <script>
+            days = ['mon 18', 'tue 19', 'wed 20', 'thu 14', 'fri 15', 'sat 16', 'sun 17']
+            times = ['10h00', '10h30', '11h00', '11h30', '12h00', '12h30','13h00', '13h30', '14h00', '14h30', '15h00', '15h30', '16h00', '16h30']
+            days.forEach(day => {
+                let dayColumn = document.createElement('div');
+                dayColumn.style = 'min-width: 5rem; height: min-content; display:flex; flex-direction:column; justify-content: start; align-content: center; text-align:center;'
+                
+                let dayParagraph = document.createElement('p')
+                dayParagraph.textContent = day
+                dayParagraph.style = 'color: gray;'
+                if (day === 'thu 14') {
+                    dayParagraph.style = 'color: var(--main-color);'
+                    dayColumn.style = 'min-width: 5rem; height: min-content; display:flex; flex-direction:column; justify-content: start; align-content: center; text-align:center; background-color: var(--background-color); border-radius: var(--main-border-radius);'
+                }
+                dayColumn.appendChild(dayParagraph)
+                
+                times.forEach(time => {
+                let anchor = document.createElement('a');
+                anchor.href = ""; // You would put the actual link here
+                anchor.id = day + '-' + time;
+                anchor.className = 'time-block';
+                if (day === 'ALL') {
+                    anchor.textContent = '>';
+                    anchor.className = 'time-block arrow';
+                } else {
+                    anchor.textContent = time;
+                }
+                anchor.addEventListener('click', (e) => {
+                    console.log(e.srcElement.textContent);
+                    e.preventDefault(); // Prevent the default anchor action
+                    // e.srcElement.className = 'time-block selected'
+                    if (e.srcElement.className === 'time-block' /*&& anchor.textContent != '>'*/) {
+                        e.srcElement.className = 'time-block selected';
+                    } else if (e.srcElement.className === 'time-block selected') {
+                        e.srcElement.className = 'time-block'
+                    } else {
+                        console.log('what')
+                    }
+                });
+                
+                dayColumn.appendChild(anchor);
+                });
+
+                calendarWidget = document.getElementById('calendar-widget')
+
+                calendarWidget.appendChild(dayColumn); // Assuming you want to append to the body
+            });
+        </script>
+    </div>
+</div>
 
 {% endblock %}
+

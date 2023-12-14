@@ -6,14 +6,6 @@ body .dashboard {
     justify-content: space-between;
 }
 
-body.center {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-content: center;
-}
-
 body.space-center-line {
     background-color: var(--main-light-light-gray);
 }

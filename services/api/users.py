@@ -96,7 +96,9 @@ def api_coaches_create_user():
 @users_blueprint.route('/coaches/edit-profile')
 def api_coaches_edit_profile():
     data = request.get_json()
-    data_items = title, tags, description = data['title'], data['tags'], data['description']
+    title, tags, description = data['title'], data['tags'], data['description']
+
+    # _users.update_one({})
 
     
     return jsonify({'message':'Success in updating profile in the database.'}), 200

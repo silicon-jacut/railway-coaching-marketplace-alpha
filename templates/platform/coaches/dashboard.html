@@ -3,15 +3,16 @@
 {% block body_class %}start-line{% endblock %}
 
 {% block body %}
-    
+
 <nav class="navbar-side">
     <a href="">Menu</a>
-    <a href="/my-page">My Page</a>
-    <a href="/clients">Clients</a>
-    <a href="/calendar">Calendar</a>
-    <a href="/revenue">Revenue</a>
+    <a href="/my-page" class='{{ selected if selected_page == "my-page"}}'>My Page</a>
+    <a href="/clients" class='{{ selected if selected_page == "clients"}}'>Clients</a>
+    <a href="/calendar" class='{{ selected if selected_page == "calendar"}}'>Calendar</a>
+    <a href="/revenue" class='{{ selected if selected_page == "revenue"}}'>Revenue</a>
     <!-- <a href="">Revenues</a> -->
-    <a href="/settings">Settings</a>
+    <a href="/settings" class='{{ selected if selected_page == "settings"}}'>Settings</a>
+    <a href="/api/log-out">Log-out</a>
 </nav>
 
 {% block content %}Default content{% endblock %}

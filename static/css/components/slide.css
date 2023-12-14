@@ -1,0 +1,22 @@
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-gray);
+}
+
+@keyframes fade-in {
+    start {
+        color: var(--background-color);
+        transform: translateY(-30px);
+    }
+
+    end {
+        color: var(--dark-gray);
+        transform: translateY(0);
+    }   
+}
+
+.slide text {
+    animation: fade-in 3s ease 0 1 forwards forwards;
+}

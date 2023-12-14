@@ -4,21 +4,30 @@
 
 {% import 'components/macros.html' as macros %}
 
-<div class='messages'>
-    {% for i in range(2) %}
-        <p class="message-left">Test</p>
-        <p class="message-right">Test</p>
-    {% endfor %}
-    <form action="" style="flex-direction: row;">
-        <input type="text" placeholder="...">
-        <input type="submit" name=">" value='>'>
-    </form>
-</div>
-
-<nav style='margin-right: 0;' class="navbar-right">
-    {% for i in range(10) %}
-        <a href="">test</a>
+<nav class='centered-column people-list'>
+    {% for i in range(15) %}
+        <a class='person' href='#' id='person-{{i}}'>
+            <img src="/static/images/dark-gray.png" loading="lazy" alt="profile picture">
+            <div class='text-column'>
+                <p>PERSON NAME {{i}}<br>lorem ipsum dolor amid amet deriso del spi</p>
+            </div>
+        </a>
     {% endfor %}
 </nav>
 
+<form action="" class='large-form' id='profile-form'>
+    <!-- <div style='display:flex; justify-content:start; align-content:center'> -->
+        <!-- <input type="image"> -->
+        <input type="text" name="title" placeholder="Title : ">
+    <!-- </div> -->
+    <input type="text" name="tags" placeholder="Tags : ">
+    <textarea type="text" name="description : " placeholder="Description : "></textarea>
+    <input type="submit">
+</form>
+
+<script> 
+    handleForm('/api/coaches/edit-profile', 'profile-form').then(response => {console.log(response);})
+</script>
+
 {% endblock %}
+

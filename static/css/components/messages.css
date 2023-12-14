@@ -27,3 +27,55 @@
 .messages form {
     margin-top: auto;
 }
+
+.people-list {
+    margin-top: var(--space);
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: stretch;
+    width: 510px;
+    padding: var(--space);
+    overflow-y: scroll;
+    gap: var(--space);
+}
+
+.people-list .person {
+    direction: ltr;
+    border-radius: 0;
+    box-shadow: var(--main-shadow);
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: stretch;
+    gap: var(--space);
+    height: 5em;
+    padding: var(--space);
+    min-width: 7rem;
+}
+
+.people-list .person img {
+    border-radius: 100%;
+    width: 3rem;
+    height: 3rem;
+}
+
+/* .people-list  */
+.text-column {
+    direction: ltr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: start;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.people-list .text-column p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+    margin: 0;
+}

@@ -6,13 +6,13 @@ import os
 
 # -------------------------------------------------- Set up -------------------------------------------------- #
 
-NAMEOFTHISFILE_blueprint = Blueprint('NAMEOFTHISFILE', __name__)
+calendar_blueprint = Blueprint('calendar', __name__)
 
 load_dotenv()
 
 _client = MongoClient(os.getenv('PROTOTYPE_DB_CONNECTION_STRING'))
 _db = _client[os.getenv('PROTOTYPE_DB_NAME')]
-_NAMEOFTHISFILE = _db['NAMEOFTHISFILE']
+_users = _db['users']
 
 # ----------------------------------------- Helper Functions/Objects ----------------------------------------- #
 
@@ -20,6 +20,7 @@ _NAMEOFTHISFILE = _db['NAMEOFTHISFILE']
 
 # ------------------------------------------------ Endpoints ------------------------------------------------- #
 
-@NAMEOFTHISFILE_blueprint.route('/', methods=['GET'])
-def _():
-    return '', 501
+@calendar_blueprint.route('/coaches/calendar', methods=['POST'])
+def coaches_calendar():
+    print('hello world : ' + request.get_json())
+    return jsonify({'Success in calendar update for '}), 501

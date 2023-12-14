@@ -13,6 +13,8 @@
 @import url('components/nav.css');
 @import url('components/divs.css');
 @import url('components/body.css');
+@import url('components/time-block.css');
+@import url('components/selected.css');
 
 
 /* @import url('base.no');
@@ -29,6 +31,7 @@
 :root {
     --main-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
     --main-color: green;
+    --main-color-vibrant: rgb(2, 218, 2);
     --main-color-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
     --text-color-default: rgb(30, 30, 30);
     --background-color-footer: rgb(30, 30, 30);

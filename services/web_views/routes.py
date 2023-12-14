@@ -34,8 +34,12 @@ def coaches_emailsim():
     return render_template('emails/coaches.html')
 
 @routes_blueprint.route('/my-page')
-def coaches_dashboard():
-    return render_template('platform/coaches/dashboard/my-page.html')
+def coaches_dashboard_my_paeg():
+    return render_template('platform/coaches/dashboard/my-page.html', selected_page = 'my-page')
+
+@routes_blueprint.route('/clients')
+def coaches_dashboard_clients():
+    return render_template('platform/coaches/dashboard/clients.html')
 
 # Change password route
 @routes_blueprint.route('/change-password')
@@ -47,7 +51,22 @@ def change_password():
 def profile():
     return render_template('platform/profile.html')
 
+# User profile route
+@routes_blueprint.route('/slides')
+def slides():
+    return render_template('slides.html')
+
+# Settings page route
+@routes_blueprint.route('/calendar')
+def coaches_dashboard_callendar():
+    return render_template('platform/coaches/dashboard/calendar.html', selected_page = 'calendar')
+
 # Settings page route
 @routes_blueprint.route('/settings')
 def settings():
-    return render_template('platform/settings.html')
+    return render_template('platform/coaches/dashboard/settings.html', selected_page = 'settings')
+
+# Settings page route
+@routes_blueprint.route('/revenue')
+def revenue():
+    return render_template('platform/coaches/dashboard/revenue.html', selected_page = 'revenue')

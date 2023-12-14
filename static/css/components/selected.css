@@ -1,0 +1,4 @@
+.selected {
+    color: var(--main-color-vibrant);
+    fill: var(--main-color-vibrant);
+}

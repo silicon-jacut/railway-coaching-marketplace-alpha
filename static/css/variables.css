@@ -5,6 +5,9 @@
     --dark-gray: rgb(30,30,30);
     /* --mid-gray: rgb(59, 59, 59); */
 
+    --space: 1.5rem;
+    --half-space: 0.75rem;
+
     --secondary-color: var(--dark-gray)
 
     /* typography */
@@ -13,5 +16,7 @@
 
     --background-color: var(--white);
     --background-color-2: var(--light-gray);
+
+    --main-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
 
 }
