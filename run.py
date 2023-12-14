@@ -6,13 +6,12 @@ from services.api.users import users_blueprint
 from services.api.browse_coaches import browse_coaches_blueprint
 # from services.api.auth import auth_blueprint
 import os
+import json
 
 from pymongo import MongoClient
 
 client = MongoClient('mongodb+srv://timothee-oliveau:Y6OXjsKKBjKKqAvc@coachingmarketplace.h2hzjxp.mongodb.net/?retryWrites=true&w=majority')
 client = MongoClient(os.getenv('PROTOTYPE_DB_CONNECTION_STRING'))
-
-db = client[os.getenv('PROTOTYPE_DB_NAME')]
 
 # old_mock_coaches = [
 #     {

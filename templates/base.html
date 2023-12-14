@@ -48,8 +48,10 @@
                 }
             }
             // Return the final response in JSON format
-            console.log('jsonRequest : response : ' + response);
-            return response.json();
+            const jsonResponse = await response.json();
+
+            console.log('base.html - jsonRequest : response : ' + JSON.stringify(jsonResponse));
+            return jsonResponse;
         }
     </script>
 
@@ -70,6 +72,7 @@
         
                     try {
                         const response = await jsonRequest(apiEndpoint, formDataDict, method);
+                        console.log('base.html - handleForm : response : ' + JSON.stringify(response))
                         resolve(response);  // Resolve the promise with the response
                     } catch (error) {
                         reject(error);  // Reject the promise with the caught error

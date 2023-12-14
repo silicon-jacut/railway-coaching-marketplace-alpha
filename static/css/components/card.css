@@ -2,9 +2,6 @@
     border-radius: var(--main-border-radius);
     background-color: var(--main-white);
     padding: var(--space);
-    margin: var(--space);
-    box-shadow: var(--main-box-shadow);
-    display: block;
-    justify-items: center;
-    align-items: center;
+    /* margin: var(--space); */
+    box-shadow: var(--main-shadow);
 }

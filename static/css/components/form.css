@@ -19,6 +19,8 @@ form input, form textarea {
     padding: var(--space);
 }
 
+
+
 form input:focus, textarea:focus {
     /* outline: solid 2px var(--main-color); */
     outline: none;
@@ -35,6 +37,7 @@ form textarea {
 form input[type='submit'] {
     width: 100%;
     background-color: var(--main-background-color);
+    cursor: pointer;
 }
 
 form label {

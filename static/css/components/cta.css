@@ -1,3 +1,5 @@
+@import url('../variables.css');
+
 .cta {
     border-radius: var(--main-border-radius);
     padding: 0.80rem 3rem;

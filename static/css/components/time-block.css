@@ -6,7 +6,8 @@
     max-height: 3rem;
     padding: var(--half-space) var(--space);
     box-shadow: none;
-    color: gray;
+    /* color: gray; */
+    color: rgb(200,200,200);
     background-color: var(--main-background-color);
     /* border: 1px solid transparent; */
 }

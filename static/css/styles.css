@@ -15,6 +15,7 @@
 @import url('components/body.css');
 @import url('components/time-block.css');
 @import url('components/selected.css');
+@import url('components/scrollbar.css');
 
 
 /* @import url('base.no');
@@ -28,8 +29,10 @@
 @import url('components/footer.css');
 @import url('components/small_things.css'); */
 
+/* box-shadow: 2px 4px 10px rgba(30,30,30,0.05) */
+
 :root {
-    --main-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);
+    --main-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15); 
     --main-color: green;
     --main-color-vibrant: rgb(2, 218, 2);
     --main-color-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15);

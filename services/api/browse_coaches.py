@@ -70,56 +70,28 @@ def api_create_user():
 
     coaches = _users.find({'isCoach':True})
 
-    # response = prompt('Someone is searching for the perfect match for a coach. They searched with the following terms : ' + str(data) + '\n\n\n Here are a list of coaches : ' + str(coaches) + '\n\n\nIn a json format, rank the coaches in a perfect order for this person, add a "comment" section to each coach as to why they could be the best match for this client. Only answer with the Json list [{},{},{}]. Answer only in this format : [{rank: 1; firstName: Firstname, email: email@email.com, comment: comment},]')
+    new_list = []
+    for coach in coaches:
+        coach['_id'] = str(coach['_id'])
+        new_list.append(coach)
+    coaches = new_list
 
-    response = [
-            {
-                "rank": 1, 
-                "firstName": "John",
-                "comment": "Coach John specializes in stress management and relaxation techniques. He offers mindfulness exercises geared towards stress release, that can help with your sleep issues related to job stress."
-            },
-            {
-                "rank": 2, 
-                "firstName": "Lisa",
-                "comment": "Coach Lisa has vast experience in dealing with professional burnout and insomnia. Her stress management strategies could likely improve your sleep."
-            },
-            {
-                "rank": 3, 
-                "firstName": "David",
-                "comment": "Coach David focuses on changing sleep habits and can provide stress-relief techniques to improve your sleep quality."
-            },
-            {
-                "rank": 4, 
-                "firstName": "Maria",
-                "comment": "Coach Maria mainly deals with work-life balance issues. She can help you manage your job stress and in turn improve your sleep."
-            },
-            {
-                "rank": 5, 
-                "firstName": "Megan",
-                "comment": "Coach Megan has some experience with stress-related issues but might not as focused on sleep problems caused by stress at work."
-            }
-        ]
-    
-    no_prompt = True
-    if os.getenv('DEV_ENVIRONMENT') == 'local':
-        print('local, noprompt')
-        response = coaches
-    else:
-        response = prompt('Someone is searching for the perfect match for a coach. They searched with the following terms : ' + str(data) + '\n\n\n Here are a list of coaches : ' + str(coaches) + '\n\n\nIn a json format, rank the coaches in a perfect order for this person, add a "comment" section to each coach as to why they could be the best match for this client. Only answer with the Json list [{},{},{}]. Answer only in this format : [{rank: 1; firstName: Firstname, email: email@email.com, comment: comment},]')
-        try:
-            response = json.loads(response)
-            no_prompt = False
-        except json.decoder.JSONDecodeError:
-            return jsonify({'message':'Error decoding the response, try again'})
+    response = prompt('Someone is searching for the perfect match for a coach. They searched with the following terms : ' + str(data) + '\n\n\n Here are a list of coaches : ' + str(coaches) + '\n\n\nIn a json format, rank the coaches in a perfect order for this person, add a "comment" section to each coach as to why they could be the best match for this client. Only answer with the Json list [{},{},{}]. Answer only in this format : [{rank: 1; firstName: Firstname, email: email@email.com, comment: comment},]')
+    try:
+        response = json.loads(response)
+        # no_prompt = False
+    except json.decoder.JSONDecodeError:
+        return jsonify({'message':'Error decoding the response, try again'})
     
     final_ranked_coach_list = []
 
-    if no_prompt == False:
+    # if no_prompt == False:
 
-        for ranked_coach in range(len(response)):
+    for ranked_coach in response:
 
-            corresponding_db_coach_dict = dict_search(coaches, 'name', ranked_coach['name'])
+        corresponding_db_coach_dict = dict_search(coaches, 'firstName', ranked_coach['firstName'])
 
+        if corresponding_db_coach_dict is not None:
             ranked_coach['tags'] = corresponding_db_coach_dict['tags']
             ranked_coach['personality'] = corresponding_db_coach_dict['personality']
             ranked_coach['firstName'] = corresponding_db_coach_dict['firstName']
@@ -127,16 +99,16 @@ def api_create_user():
             ranked_coach['title'] = corresponding_db_coach_dict['title']
             # ranked_coach['hourlyRate'] = corresponding_db_coach_dict['tags']
             # ranked_coach['description'] = corresponding_db_coach_dict['tags']
+            
+            print('rkdcch' + ranked_coach)
+            print('FRCL' + final_ranked_coach_list)
 
             final_ranked_coach_list.append(ranked_coach)
+        else:
+            print(f"Coach with name {ranked_coach['firstName']} not found in database.")
 
-    # Extract user data from request
-    # data = request.get_json()
-    # first_name = data.get('firstName')
-    # last_name = data.get('lastName')
-    # email = data.get('email')
-    # password = data.get('password')
+        print('\n\n\n' + str(json.dumps(new_list, indent=4)) + '\n\n\n')
 
-    return jsonify({'message': 'browse successful', 'coaches': final_ranked_coach_list}), 200
+    return jsonify({'message': 'browse successful', 'coaches': new_list}), 200
 
     # return create_user(password, email, is_coach=False, first_name=first_name, last_name=last_name)

@@ -15,44 +15,73 @@
 </style>
 
 <form action="" id='search-form'>
-    <input style='width:400%;' type="text" name="Search" id="search" type='search' placeholder="#Tags, Name, Words... Or describe what you'd like in your own words... ">
-    <input type="submit" name="submit" id="submit" class="cta">
+    <input style='width:400%;' type="text" name="Search" id="search" type='search' placeholder="#Tags, Name... or describe your situation in your own words... ">
+    <input type="submit" name="submit" id="submit" value='Smart Coach Search'>
 </form>
 
-<div id='results'></div>
+<style>
+    a {
+        background-color:floralwhite;
+    }
+</style>
+
+<div id='results' style="overflow-y: auto;"></div>
+
+<!--<div>${coach.description}</div>-->
 
 <script>
     // document.getElementById('search-form').addEventListener('submit', function(e) {
     //    e.preventDefault(); // Prevent the default form submission
     const searchInput = document.getElementById('search').value;
     handleForm('/api/browse-coaches', 'search-form').then(response => {
-        console.log('browse-coaches : response message ' + response.body);
-        updateResults(response.body);
+        console.log('browse-coaches.html - handleForm : response message : ' + JSON.stringify(response));
+        updateResults(response);
     }).catch(error => {
-        console.error('An error occurred:', error);
+        console.error('browse-coaches.html - handleForm : An error occurred:', error);
     });
     //});
 
     function updateResults(data) {
         const resultsDiv = document.getElementById('results');
-        console.log('browse-coaches : updateResults : ' + data)
-        console.log('browse-coaches : updateResults : ' + data.body)
+        console.log('browse-coaches - updateResults : updateResults : ' + JSON.stringify(data))
         resultsDiv.innerHTML = ''; // Clear previous results
-        data.coaches.forEach(coach => {
-            const coachDiv = document.createElement('div');
-            coachDiv.className = 'card';
-            coachDiv.innerHTML = `
-                <div style='display:flex; justify-content:space-around ; align-content:center;'>
-                    <div style='text-align:center;'>X</div>
-                    <div style='text-align:center;'>${coach.title}</div>
-                    <div style='text-align:center;'>#${coach.tags.join(' #')}</div>
-                    <div style='text-align:center;'>${coach.name}</div>
-                    <div style='text-align:center;'>${coach.personality.join(', ')}</div>
-                    <div>${coach.description}</div>
-                </div>
-            `;
-            resultsDiv.appendChild(coachDiv);
-        });
+        
+        
+
+        if (data.coaches.length === 0) {
+            let noResultParagraph = document.createElement('p');
+            noResultParagraph.innerHTML = 'No matching result...';
+            resultsDiv.append(noResultParagraph);
+        } else {
+            data.coaches.forEach(coach => {
+                const coachDiv = document.createElement('div');
+                // coachDiv.className = 'card';
+                coachDiv.innerHTML = `
+                    <div style='display: flex; justify-content: space-between; align-items: center; flex-direction: row; box-shadow: 1px 2px 4px rgba(10, 10, 10, 0.15); margin: var(--space); padding: var(--space);border-radius: var(--main-border-radius); background-color: floralwhite;' >
+                        <!--<div class='centered-line-but-extremes'; box-shadow: 2px 4px 10px rgba(30,30,30,0.05); margin: var(--space); padding: var(--space);border-radius: var(--main-border-radius); background-color: floralwhite;>-->
+                        <div class='centered-column'>
+                            <div style='text-align:center;'>O.O</div>
+                            <div style='text-align:center;'>${coach.firstName} ${coach.lastName}</div>
+                            <div style='text-align:center;'>${coach.title}</div>
+                            <!--<div style='text-align:center;'>${coach.rating}/5⭐️ (${coach.dbRatings} ratings)</div>-->
+                            <div style='text-align:center;'>#${coach.tags.join(' #')}</div>
+                            <div style='text-align:center;'>${coach.personality.join(', ')}</div>
+                            
+                        </div>
+                        <div>
+                            <p>${coach.aiComment}</p>
+                        </div>
+                        <div class='centered-column'>
+                            <a class='card' href='/login'>9h30 - Tomorrow - Fri 15/12</a>
+                            <a class='card' href='/login'>15h30 - Tomorrow - Fri 15/12</a>
+                            <a class='card' href='/login'>16h00 - Tomorrow - Fri 15/12</a>
+                            <a class='card' href='/login'>10h00 - Monday - 15/12</a>
+                        </div>
+                    </div>
+                `;
+                resultsDiv.appendChild(coachDiv);
+            });
+        }
     }
 </script>
 

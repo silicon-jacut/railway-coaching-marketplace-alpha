@@ -42,10 +42,10 @@
                 
                 let dayParagraph = document.createElement('p')
                 dayParagraph.textContent = day
-                dayParagraph.style = 'color: gray;'
+                dayParagraph.style = 'color: rgb(200,200,200);'
                 if (day === 'thu 14') {
-                    dayParagraph.style = 'color: var(--main-color);'
-                    dayColumn.style = 'min-width: 5rem; height: min-content; display:flex; flex-direction:column; justify-content: start; align-content: center; text-align:center; background-color: var(--background-color); border-radius: var(--main-border-radius);'
+                    dayParagraph.style = 'color: var(--dark-gray);'
+                    dayColumn.style = 'min-width: 5rem; height: min-content; display:flex; flex-direction:column; justify-content: start; align-content: center; text-align:center; background-color: var(--light-gray); border-radius: var(--main-border-radius);'
                 }
                 dayColumn.appendChild(dayParagraph)
                 
@@ -58,7 +58,7 @@
                     anchor.textContent = '>';
                     anchor.className = 'time-block arrow';
                 } else {
-                    anchor.textContent = time;
+                    anchor.textContent = time;// anchor.textContent = '・';
                 }
                 anchor.addEventListener('click', (e) => {
                     console.log(e.srcElement.textContent);
@@ -66,8 +66,10 @@
                     // e.srcElement.className = 'time-block selected'
                     if (e.srcElement.className === 'time-block' /*&& anchor.textContent != '>'*/) {
                         e.srcElement.className = 'time-block selected';
+                        // e.srcElement.textContent = time
                     } else if (e.srcElement.className === 'time-block selected') {
                         e.srcElement.className = 'time-block'
+                        // e.srcElement.textContent = '・'
                     } else {
                         console.log('what')
                     }

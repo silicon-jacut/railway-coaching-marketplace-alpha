@@ -55,3 +55,12 @@
     padding: var(--space);
     margin: var(--space);
 }
+
+.centered-line-but-extremes { 
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+}
+.centered-line-but-extremes > span {
+    flex: 1 0 0;
+}
