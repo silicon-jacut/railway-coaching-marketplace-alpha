@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+
+{% import 'components/macros.html' as macros %}
+
+<style>
+
+#browse-coaches {
+    display:flex; justify-content:center; flex-direction:row;
+    margin: var(--space);
+    gap: var(--space);
+}
+
+</style>
+
+<form action="" id='browse-coaches' style=''>
+    <input style='width:400%;' type="text" name="Search" id="search" type='search' placeholder="#Tags, Name, Words... Or describe what you'd like in your own words... ">
+    <input type="submit" name="submit" id="submit" class="cta">
+</form>
+
+{% for i in range(10) %}
+
+<div class='card'>
+    <div style='display:flex; justify-content:space-around ; align-content:center;'>
+        <div style='text-align:center;'>X</div>
+        <div style='text-align:center;'>{{title}}</div>
+        <div style='text-align:center;'>{{tags}}</div>
+        <div style='text-align:center;'>{{name}}</div>
+        <div style='text-align:center;'>{{personality}}</div>
+        <div>{{description}}</div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+<script> 
+    handleForm('/api/browse-coaches', 'browse-coaches').then(response => {console.log(response);})
+</script>
+
+{% endblock %}

@@ -10,7 +10,7 @@
     console.log('loaded coaches-register.html');
 </script>
 
-<form action='' class='centered' id='login-form' style='max-width: 30rem;'>
+<form action='' class='centered' id='register-form' style='max-width: 30rem;'>
         <div class='centered-line'>
             <input required type="text" name="firstName" id="firstName" placeholder="First Name">
             <input required type="text" name="lastName" id="lastName" placeholder="Last Name">
@@ -23,11 +23,11 @@
         <!-- <label for="passowrd">Password</label> -->
         <input required type="password" name="password" id="password" placeholder='password'>
         <br>
-        <input type="submit" value='Login'>
+        <input type="submit" value='Create-Account'>
 </form>
 
 <script> 
-    handleForm('/api/coaches/create-user', 'login-form')
+    handleForm('/api/coaches/is_coach=True', 'register-form')
   .then(response => {console.log('response from handleForm().then()', response); if (response.message == 'Success in creating coach account.'){location.assign('/coaches/emailsim')}})
   .catch(error => {
     console.error('An error occurred:', error);

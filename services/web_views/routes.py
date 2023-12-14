@@ -5,11 +5,11 @@ routes_blueprint = Blueprint('routes', __name__)
 # Homepage route
 @routes_blueprint.route('/')
 def index():
-    return render_template('site/clients/index.html')
+    return render_template('site/clients/small-index.html')
 
 @routes_blueprint.route('/coaches')
 def coaches_index():
-    return render_template('site/coaches/index.html')
+    return render_template('site/coaches/small-index.html')
 
 # Login page route
 @routes_blueprint.route('/login')
@@ -70,3 +70,7 @@ def settings():
 @routes_blueprint.route('/revenue')
 def revenue():
     return render_template('platform/coaches/dashboard/revenue.html', selected_page = 'revenue')
+
+@routes_blueprint.route('/site/browse-coaches')
+def site_clients_browse_coaches():
+    return render_template('site/clients/browse-coaches.html', selected_page = 'revenue')

@@ -72,10 +72,18 @@ def api_create_user():
 
     return create_user(password, email, is_coach=False, first_name=first_name, last_name=last_name)
 
-@users_blueprint.route('/coaches/create-user', methods=['POST'])
-def api_coaches_create_user():
+@users_blueprint.route('/create-user/is_coach=<isCoach>', methods=['POST'])
+def api_coaches_create_user(is_coach):
     # Extract user data from request
     data = request.get_json()
+
+    if is_coach.lower() == 'true':
+        is_coach = True
+    elif is_coach.lower() == 'false':
+        is_coach = False
+    else:
+        return jsonify({'Error': 'is_coach isn\'t equal either to "True" or "Talse"'})
+    is_coach = bool(is_coach)
     # first_name = data.get('firstName')
     # last_name = data.get('lastName')
     # email = data.get('email')
@@ -89,7 +97,7 @@ def api_coaches_create_user():
     
     # return create_user(password, email, is_coach=True, first_name=first_name, last_name=last_name)
 
-    _users.insert_one({'firstName':first_name, 'lastName':last_name, 'email': email, 'hPassword': generate_password_hash(password)})
+    _users.insert_one({'firstName':first_name, 'lastName':last_name, 'email': email, 'hPassword': generate_password_hash(password), 'isCoach':is_coach})
 
     return jsonify({'message':'Success in creating coach account.'}), 200
 

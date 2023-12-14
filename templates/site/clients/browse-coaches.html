@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+
+{% import 'components/macros.html' as macros %}
+
+<style>
+#search-form {
+    display:flex; justify-content:center; flex-direction:row;
+    margin: var(--space);
+    gap: var(--space);
+}
+</style>
+
+<form action="" id='search-form'>
+    <input style='width:400%;' type="text" name="Search" id="search" type='search' placeholder="#Tags, Name, Words... Or describe what you'd like in your own words... ">
+    <input type="submit" name="submit" id="submit" class="cta">
+</form>
+
+<div id='results'></div>
+
+<script>
+    // document.getElementById('search-form').addEventListener('submit', function(e) {
+    //    e.preventDefault(); // Prevent the default form submission
+    const searchInput = document.getElementById('search').value;
+    handleForm('/api/browse-coaches', 'search-form').then(response => {
+        console.log('browse-coaches : response message ' + response.body);
+        updateResults(response.body);
+    }).catch(error => {
+        console.error('An error occurred:', error);
+    });
+    //});
+
+    function updateResults(data) {
+        const resultsDiv = document.getElementById('results');
+        console.log('browse-coaches : updateResults : ' + data)
+        console.log('browse-coaches : updateResults : ' + data.body)
+        resultsDiv.innerHTML = ''; // Clear previous results
+        data.coaches.forEach(coach => {
+            const coachDiv = document.createElement('div');
+            coachDiv.className = 'card';
+            coachDiv.innerHTML = `
+                <div style='display:flex; justify-content:space-around ; align-content:center;'>
+                    <div style='text-align:center;'>X</div>
+                    <div style='text-align:center;'>${coach.title}</div>
+                    <div style='text-align:center;'>#${coach.tags.join(' #')}</div>
+                    <div style='text-align:center;'>${coach.name}</div>
+                    <div style='text-align:center;'>${coach.personality.join(', ')}</div>
+                    <div>${coach.description}</div>
+                </div>
+            `;
+            resultsDiv.appendChild(coachDiv);
+        });
+    }
+</script>
+
+<script>
+    // ... Keep your existing jsonRequest and handleForm functions here ...
+</script>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% import 'components/macros.html' as macros %}
+
+
+<nav class="navbar-top">
+    <a href="" class="logo">LOGO</a>
+    <a href="">About</a>
+    <a href="">Blog</a>
+    <a href="/coaches">I am a coach</a>
+    <a href="">Login</a>
+    <a href="/register" class="cta">Sign Up</a>
+</nav>
+
+<div style='display: flex; gap: var(--space); flex-direction: column; justify-content:start; align-content: center;'>
+
+    <div class="space"></div>
+    <h1 class="center">Find the right coach for you,</h1> 
+    
+    <h2 style='font-weight: 100; text-align:center;' class="center">Personal development is faster and better<br><br>when you got an expert on your team.</h2>
+        <!-- Our job, making lives better.Our passion, making your life better.What's missing for the life of your dreams ? We help people better their lives-->
+    
+        <div class="space"></div>
+
+        <!-- <div class="space"></div> -->
+
+    <!-- </div> -->
+    <div class="center">
+        <a href="/site/browse-coaches" class="cta">Browse coaches</a>
+    </div>
+
+    <div class="space"></div>
+    <div class="space"></div>
+    <!-- <div class="space"></div> -->
+
+    <p></p>
+    <!-- <p>Most people don't have the guts to seek coaching.</p> -->
+    <!-- <p>The fact that you're here is huge, because you have the guts to consider </p> -->
+</div>
+
+{% endblock %}
